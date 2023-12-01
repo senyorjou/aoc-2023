@@ -14,6 +14,14 @@ var values = map[string]int{
 	"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
 }
 
+func sumSlice(vals []int) int {
+	if len(vals) == 0 {
+		return 0
+	}
+
+	return vals[0] + sumSlice(vals[1:])
+}
+
 func convert(val string) int {
 	return values[val]
 }
@@ -38,11 +46,11 @@ func extractComplex(line string) int {
 
 func solve(data string, exctractfn extract) int {
 	lines := strings.Split(data, "\n")
-	result := 0
+	var results []int
 	for _, line := range lines {
-		result += exctractfn(line)
+		results = append(results, exctractfn(line))
 	}
-	return result
+	return sumSlice(results)
 }
 
 func day01() {
