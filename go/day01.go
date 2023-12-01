@@ -7,6 +7,14 @@ import (
 	"strings"
 )
 
+type extract func(string) int
+
+var values = map[string]int{
+	"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
+	"five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
+	"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
+}
+
 func extractNums(line string) int {
 	pattern := regexp.MustCompile(`(\d)`)
 	matches := pattern.FindAllStringSubmatch(line, -1)
@@ -17,12 +25,6 @@ func extractNums(line string) int {
 }
 
 func convert(val string) int {
-	values := map[string]int{
-		"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
-		"five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
-		"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
-	}
-
 	return values[val]
 }
 
@@ -35,20 +37,11 @@ func extractComplex(line string) int {
 	return first*10 + last
 }
 
-func day01P1(data string) int {
+func solve(data string, exctractfn extract) int {
 	lines := strings.Split(data, "\n")
 	result := 0
 	for _, line := range lines {
-		result += extractNums(line)
-	}
-	return result
-}
-
-func day01P2(data string) int {
-	lines := strings.Split(data, "\n")
-	result := 0
-	for _, line := range lines {
-		result += extractComplex(line)
+		result += exctractfn(line)
 	}
 	return result
 }
@@ -56,6 +49,6 @@ func day01P2(data string) int {
 func day01() {
 	data := readFile("./data/day01-input.txt")
 	fmt.Println("Day 01")
-	fmt.Printf("P1: %d\n", day01P1(data))
-	fmt.Printf("P2: %d ", day01P2(data))
+	fmt.Printf("P1: %d\n", solve(data, extractNums))
+	fmt.Printf("P2: %d ", solve(data, extractComplex))
 }
