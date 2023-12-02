@@ -20,4 +20,5 @@ func readFile(path string) string {
 func main() {
 	fmt.Println("AOC 2023, let's GO")
 	day01()
+	day02()
 }

@@ -57,5 +57,5 @@ func day01() {
 	data := readFile("./data/day01-input.txt")
 	fmt.Println("Day 01")
 	fmt.Printf("P1: %d\n", solve(data, extractNums))
-	fmt.Printf("P2: %d ", solve(data, extractComplex))
+	fmt.Printf("P2: %d\n", solve(data, extractComplex))
 }
