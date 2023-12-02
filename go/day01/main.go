@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-  "github.com/senyorjou/aoc-2023/go/utils"
+	"github.com/senyorjou/aoc-2023/go/utils"
 )
 
 type extract func(string) int
@@ -55,8 +55,8 @@ func solve(data string, exctractfn extract) int {
 	return sumSlice(results)
 }
 
-func day01() {
-	data := utils.readFile("./data/day01-input.txt")
+func main() {
+	data := utils.ReadFile("./input.txt")
 	fmt.Println("Day 01")
 	fmt.Printf("P1: %d\n", solve(data, extractNums))
 	fmt.Printf("P2: %d\n", solve(data, extractComplex))

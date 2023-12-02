@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/senyorjou/aoc-2023/go/utils"
 )
 
 func parsePlay(play string) (int, int, int) {
@@ -85,8 +87,8 @@ func solveMinimum(input string) int {
 	return total
 }
 
-func day02() {
-	data := utils.readFile("./data/day02-input.txt")
+func main() {
+	data := utils.ReadFile("./input.txt")
 	fmt.Println("Day 02")
 	fmt.Printf("P1: %d\n", solvePossible(data))
 	fmt.Printf("P2: %d\n", solveMinimum(data))
