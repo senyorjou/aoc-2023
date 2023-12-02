@@ -1,7 +1,6 @@
-package main
+package utils
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -15,10 +14,4 @@ func readFile(path string) string {
 
 	strContent := string(data)
 	return strings.TrimRight(strContent, "\n")
-}
-
-func main() {
-	fmt.Println("AOC 2023, let's GO")
-	day01()
-	day02()
 }
