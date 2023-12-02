@@ -86,7 +86,7 @@ func solveMinimum(input string) int {
 }
 
 func day02() {
-	data := readFile("./data/day02-input.txt")
+	data := utils.readFile("./data/day02-input.txt")
 	fmt.Println("Day 02")
 	fmt.Printf("P1: %d\n", solvePossible(data))
 	fmt.Printf("P2: %d\n", solveMinimum(data))

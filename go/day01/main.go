@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+
+  "github.com/senyorjou/aoc-2023/go/shared"
 )
 
 type extract func(string) int
@@ -54,7 +56,7 @@ func solve(data string, exctractfn extract) int {
 }
 
 func day01() {
-	data := readFile("./data/day01-input.txt")
+	data := utils.readFile("./data/day01-input.txt")
 	fmt.Println("Day 01")
 	fmt.Printf("P1: %d\n", solve(data, extractNums))
 	fmt.Printf("P2: %d\n", solve(data, extractComplex))
