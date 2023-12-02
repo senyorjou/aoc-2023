@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-  "github.com/senyorjou/aoc-2023/go/shared"
+  "github.com/senyorjou/aoc-2023/go/utils"
 )
 
 type extract func(string) int
