@@ -2,38 +2,10 @@ package main
 
 import (
 	"fmt"
-	"regexp"
 	"strconv"
-	"strings"
 
 	"github.com/senyorjou/aoc-2023/go/utils"
 )
-
-func getAdjacents(matrix [][]string, row int, col int) int {
-	count := 0
-	for i := -1; i <= 1; i++ {
-		for j := -1; j <= 1; j++ {
-			if i == 0 && j == 0 {
-				continue
-			}
-			newRow := row + i
-			newCol := col + j
-			if newRow >= 0 && newRow < len(matrix) && newCol >= 0 && newCol < len(matrix[0]) {
-				if matrix[newRow][newCol] != "." {
-					count++
-				}
-			}
-		}
-	}
-	return count
-}
-
-func extractIntegers(matrix [][]string, row int) []string {
-	joinedString := strings.Join(matrix[row], "")
-	integers := regexp.MustCompile("[0-9]+").FindAllString(joinedString, -1)
-
-	return integers
-}
 
 func solve2(matrix [][]string) int {
 	aPart := false
