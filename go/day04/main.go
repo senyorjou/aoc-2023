@@ -27,20 +27,20 @@ func solve1(lines []string) int {
 
 func solve2(lines []string) int {
 	stack := map[int]int{}
+	total := 0
 	for i, line := range lines {
 		left, right := parseLine(line)
 		numWins := getIntersection(left, right)
 		stack[i] += 1
+		total += 1
 		for j := 1; j <= stack[i]; j++ {
 			for k := range numWins {
 				stack[i+k+1] += 1
+				total += 1
 			}
 		}
 	}
-	total := 0
-	for _, v := range stack {
-		total += v
-	}
+
 	return total
 }
 
