@@ -31,8 +31,11 @@ func (v value) replace(o, n string) value {
 func (v value) toString() string {
 	return string(v)
 }
-func calculateHighestCombination(hand string) (int, int) {
+func calculateHighestCombination(hand string, joker bool) (int, int) {
 	hexa := value(hand).replace("T", "a").replace("J", "b").replace("Q", "c").replace("K", "d").replace("A", "e").toString()
+	if joker {
+		hexa = value(hexa).replace("b", "0").toString()
+	}
 	decimal64, _ := strconv.ParseInt(hexa, 16, 32)
 	decimal := int(decimal64)
 	cards := strings.Split(hand, "")
@@ -82,28 +85,4 @@ func calculateHighestCombination(hand string) (int, int) {
 	// Default to High Card.
 	// return "High Card"
 	return 1, decimal
-}
-
-func sortListOfLists(data [][]int) [][]int {
-	for _, sublist := range data {
-		sort.SliceStable(sublist, func(i, j int) bool {
-			if sublist[i] < sublist[j] {
-				return true
-			}
-
-			return false
-		})
-	}
-
-	sort.Slice(data, func(i, j int) bool {
-		if data[i][0] < data[j][0] {
-			return true
-		} else if data[i][0] == data[j][0] && data[i][1] < data[j][1] {
-			return true
-		}
-
-		return false
-	})
-
-	return data
 }
