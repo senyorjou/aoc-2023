@@ -52,7 +52,7 @@
        (map extract-complex-digits)
        (apply +))
 
-  (re-seq #"(zero|one|two|three|four|five|six|seven|eigth|nine|\d)" "dhsdone23")
+  (re-seq #"(zero|one|two|three|four|five|six|seven|eigth|nine|\d)" "dhsdoneigth23")
 
   (convert "1")
   )

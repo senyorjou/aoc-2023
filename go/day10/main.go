@@ -6,7 +6,24 @@ import (
 	"github.com/senyorjou/aoc-2023/go/utils"
 )
 
-func findMovements(matrix [][]string, startPos [2]int, forbidden [2]int) [2]int {
+type point struct {
+	x int
+	y int
+}
+
+func (p point) add(other point) point {
+	return point{p.x + other.x, p.y + other.y}
+}
+
+func (p point) overlaps(other point) bool {
+	return p.x == other.x || p.y == other.y
+}
+
+func (p point) equals(other point) bool {
+	return p.x == other.x && p.y == other.y
+}
+
+func findStartMov(matrix [][]string, startPos [2]int) [2]int {
 	movs := map[[2]int][]string{
 		{0, -1}: {"|", "F", "7"},
 		{0, 1}:  {"|", "L", "J"},
@@ -18,9 +35,6 @@ func findMovements(matrix [][]string, startPos [2]int, forbidden [2]int) [2]int 
 	for dir := range movs {
 		nextPos = [2]int{startPos[0] + dir[0], startPos[1] + dir[1]}
 
-		if nextPos == forbidden {
-			continue
-		}
 		if nextPos[0] < 0 || nextPos[1] < 0 {
 			continue
 		}
@@ -28,9 +42,6 @@ func findMovements(matrix [][]string, startPos [2]int, forbidden [2]int) [2]int 
 			continue
 		}
 
-		if matrix[nextPos[0]][nextPos[1]] == "S" {
-			break
-		}
 		if dirInAllowedDirs(matrix[nextPos[0]][nextPos[1]], movs[dir]) {
 			break
 		}
@@ -51,11 +62,9 @@ func calcNextPos(startPos [2]int, forbidden [2]int, possibleDirs [2][2]int) [2]i
 func solve1(data string) int {
 	matrix := transposeAndCovert(parseData(data))
 	startPos := findInMatrix(matrix, "S")
+	nextPos := findStartMov(matrix, startPos)
 
-	forbiddenMov := [2]int{0, 0}
-	nextPos := findMovements(matrix, startPos, forbiddenMov)
-
-	forbiddenMov = startPos
+	forbiddenMov := startPos
 
 	movs := 1
 	possibleDirs := [2][2]int{}
