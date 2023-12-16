@@ -57,13 +57,13 @@ func walk(grid [][]rune, walked map[checkpoint]bool, x, y int, direction Directi
 		}
 		if _, exists := walked[checkpoint{x, y, direction}]; exists {
 			break
+
 		}
 		walked[checkpoint{x, y, direction}] = true
 
-		current := grid[y][x]
-
-		switch current {
-		case '.':
+		switch grid[y][x] {
+		case
+			'.':
 			x, y = moveOneStep(x, y, direction)
 		case '|':
 			if direction == East || direction == West {
@@ -107,27 +107,51 @@ func walk(grid [][]rune, walked map[checkpoint]bool, x, y int, direction Directi
 	return walked
 }
 
-func solve1(input string) int {
-	grid := createGrid(input)
-	walked := make(map[checkpoint]bool)
-
-	walk(grid, walked, 0, 0, East)
-
+func totalChecks(grid [][]rune, walked map[checkpoint]bool) int {
 	total := 0
 	for y, row := range grid {
 		for x := range row {
 			if walked[checkpoint{x, y, East}] || walked[checkpoint{x, y, West}] || walked[checkpoint{x, y, North}] || walked[checkpoint{x, y, South}] {
+
 				total++
 			}
 		}
+
 	}
+	return total
+}
+
+func solveGrid(grid [][]rune, x, y int, direction Direction) int {
+	walked := make(map[checkpoint]bool)
+	walk(grid, walked, x, y, direction)
+	total := totalChecks(grid, walked)
 
 	return total
+}
+
+func solve1(input string) int {
+	grid := createGrid(input)
+	return solveGrid(grid, 0, 0, West)
+}
+
+func solve2(input string) int {
+	grid := createGrid(input)
+	results := make([]int, 0)
+	for y, row := range grid {
+		for x := range row {
+			if y == 0 || y == len(grid)-1 || x == 0 || x == len(grid[0])-1 {
+				for dir := range []Direction{North, South, East, West} {
+					results = append(results, solveGrid(grid, x, y, Direction(dir)))
+				}
+			}
+		}
+	}
+	return utils.MaxIntList(results)
 }
 
 func main() {
 	data := (utils.ReadFile("./input.txt"))
 	fmt.Println("Day 16")
 	fmt.Printf("P1: %d\n", solve1(data))
-	// fmt.Printf("P2: %d\n", solve2(data))
+	fmt.Printf("P2: %d\n", solve2(data))
 }

@@ -31,3 +31,13 @@ func ProdIntList(list []int) int {
 	}
 	return total
 }
+
+func MaxIntList(list []int) int {
+	max := 0
+	for _, n := range list {
+		if n > max {
+			max = n
+		}
+	}
+	return max
+}
