@@ -143,8 +143,8 @@ func solve2(input string) int {
 				y == len(grid)-1 ||
 				x == 0 ||
 				x == len(grid[0])-1 {
-				for dir := range []Direction{North, South, East, West} {
-					results = append(results, solveGrid(grid, x, y, Direction(dir)))
+				for _, dir := range []Direction{North, South, East, West} {
+					results = append(results, solveGrid(grid, x, y, dir))
 				}
 			}
 		}
