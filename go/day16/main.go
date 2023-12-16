@@ -136,13 +136,12 @@ func solve1(input string) int {
 
 func solve2(input string) int {
 	grid := createGrid(input)
+	maxY := len(grid) - 1
+	maxX := len(grid[0]) - 1
 	results := make([]int, 0)
 	for y, row := range grid {
 		for x := range row {
-			if y == 0 ||
-				y == len(grid)-1 ||
-				x == 0 ||
-				x == len(grid[0])-1 {
+			if y == 0 || y == maxY || x == 0 || x == maxX {
 				for _, dir := range []Direction{North, South, East, West} {
 					results = append(results, solveGrid(grid, x, y, dir))
 				}
