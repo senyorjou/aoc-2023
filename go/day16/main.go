@@ -57,7 +57,6 @@ func walk(grid [][]rune, walked map[checkpoint]bool, x, y int, direction Directi
 		}
 		if _, exists := walked[checkpoint{x, y, direction}]; exists {
 			break
-
 		}
 		walked[checkpoint{x, y, direction}] = true
 
@@ -111,12 +110,13 @@ func totalChecks(grid [][]rune, walked map[checkpoint]bool) int {
 	total := 0
 	for y, row := range grid {
 		for x := range row {
-			if walked[checkpoint{x, y, East}] || walked[checkpoint{x, y, West}] || walked[checkpoint{x, y, North}] || walked[checkpoint{x, y, South}] {
-
+			if walked[checkpoint{x, y, East}] ||
+				walked[checkpoint{x, y, West}] ||
+				walked[checkpoint{x, y, North}] ||
+				walked[checkpoint{x, y, South}] {
 				total++
 			}
 		}
-
 	}
 	return total
 }
@@ -139,7 +139,10 @@ func solve2(input string) int {
 	results := make([]int, 0)
 	for y, row := range grid {
 		for x := range row {
-			if y == 0 || y == len(grid)-1 || x == 0 || x == len(grid[0])-1 {
+			if y == 0 ||
+				y == len(grid)-1 ||
+				x == 0 ||
+				x == len(grid[0])-1 {
 				for dir := range []Direction{North, South, East, West} {
 					results = append(results, solveGrid(grid, x, y, Direction(dir)))
 				}
